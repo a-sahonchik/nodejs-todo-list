@@ -3,7 +3,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: './tsconfig.json',
   },
   extends: [
     'plugin:react/recommended',
@@ -13,21 +13,19 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:import/typescript',
     'plugin:jsx-a11y/recommended',
+    'prettier',
+    'plugin:prettier/recommended',
   ],
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
-  overrides: [
-  ],
-  plugins: [
-    'react'
-  ],
-  rules: {
-  },
+  overrides: [],
+  plugins: ['react'],
+  rules: {},
   settings: {
     react: {
       version: 'detect',
     },
-  }
+  },
 }
