@@ -4,6 +4,9 @@ import LOGO from '../logo.png'
 import { TodoList } from './todoList'
 import { AddItem } from './addItem'
 
+import Container from 'react-bootstrap/Container'
+import Navbar from 'react-bootstrap/Navbar'
+
 const initialTodos: TodoListItem[] = [
   {
     id: 1,
@@ -46,16 +49,39 @@ export const App = (): JSX.Element => {
   return (
     <>
       <div id="header">
-        <img src={LOGO} alt="Todo application logo" width="135" height="110" />
-        <h1>React TypeScript Webpack Template</h1>
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand>
+              <img
+                alt="Todo application logo"
+                src={LOGO}
+                width="27"
+                height="22"
+                className="d-inline-block align-middle m-3"
+              />{' '}
+              React TypeScript Todo App
+            </Navbar.Brand>
+          </Container>
+        </Navbar>
       </div>
 
-      <AddItem addTodoItem={addTodoItem} />
-      <TodoList
-        todos={todos}
-        toggleTodo={toggleTodo}
-        deleteTodoItem={deleteTodoItem}
-      />
+      <Container>
+        <AddItem addTodoItem={addTodoItem} />
+      </Container>
+
+      <Container className="mb-5">
+        <TodoList
+          todos={todos}
+          toggleTodo={toggleTodo}
+          deleteTodoItem={deleteTodoItem}
+        />
+      </Container>
+
+      <footer className="bg-dark text-white text-center text-lg-start mt-auto">
+        <div className="text-center p-3">
+          <span>React TypeScript Todo App</span>
+        </div>
+      </footer>
     </>
   )
 }

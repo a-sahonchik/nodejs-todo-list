@@ -1,5 +1,9 @@
 import React from 'react'
 
+import ListGroup from 'react-bootstrap/ListGroup'
+import CloseButton from 'react-bootstrap/CloseButton'
+import FormCheckInput from 'react-bootstrap/FormCheckInput'
+
 interface Props {
   item: TodoListItem
   toggleTodo: ToggleTodo
@@ -12,29 +16,26 @@ export const ListItem: React.FC<Props> = ({
   deleteTodoItem,
 }) => {
   return (
-    <li>
-      <label
-        style={{
-          textDecoration: item.isCompleted ? 'line-through' : undefined,
+    <ListGroup.Item
+      as="li"
+      className="d-flex justify-content-between align-items-start"
+      style={{
+        textDecoration: item.isCompleted ? 'line-through' : undefined,
+        background: item.isCompleted ? '#00ff101c' : 'white',
+      }}
+    >
+      <FormCheckInput
+        defaultChecked={item.isCompleted}
+        onClick={() => {
+          toggleTodo(item)
         }}
-      >
-        <input
-          type="checkbox"
-          defaultChecked={item.isCompleted}
-          onClick={() => {
-            toggleTodo(item)
-          }}
-        />{' '}
-        {item.text}
-        <button
-          type="submit"
-          onClick={() => {
-            deleteTodoItem(item.id)
-          }}
-        >
-          X
-        </button>
-      </label>
-    </li>
+      />{' '}
+      <div className="ms-2 me-auto">{item.text}</div>
+      <CloseButton
+        onClick={() => {
+          deleteTodoItem(item.id)
+        }}
+      />
+    </ListGroup.Item>
   )
 }
