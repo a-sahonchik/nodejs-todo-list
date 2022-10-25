@@ -4,3 +4,5 @@ interface TodoListItem {
 }
 
 type ToggleTodo = (selectedTodo: TodoListItem) => void
+
+type AddTodoItem = (text: string) => void

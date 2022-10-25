@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../styles.css'
 import LOGO from '../logo.png'
 import { TodoList } from './todoList'
+import { AddItem } from './addItem'
 
 const initialTodos: TodoListItem[] = [
   {
@@ -30,6 +31,11 @@ export const App = (): JSX.Element => {
     setTodos(newTodos)
   }
 
+  const addTodoItem: AddTodoItem = (text: string) => {
+    const newTodoItem = { text, isCompleted: false }
+    setTodos([...todos, newTodoItem])
+  }
+
   return (
     <>
       <div id="header">
@@ -37,6 +43,7 @@ export const App = (): JSX.Element => {
         <h1>React TypeScript Webpack Template</h1>
       </div>
 
+      <AddItem addTodoItem={addTodoItem} />
       <TodoList todos={todos} toggleTodo={toggleTodo} />
     </>
   )
