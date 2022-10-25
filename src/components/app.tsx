@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles.css'
 import LOGO from '../logo.png'
 import { TodoList } from './todoList'
@@ -7,21 +7,16 @@ import { AddItem } from './addItem'
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 
-const initialTodos: TodoListItem[] = [
-  {
-    id: 1,
-    text: 'Task 1',
-    isCompleted: false,
-  },
-  {
-    id: 2,
-    text: 'Task 2',
-    isCompleted: true,
-  },
-]
-
 export const App = (): JSX.Element => {
-  const [todos, setTodos] = useState(initialTodos)
+  const [todos, setTodos] = useState<TodoListItem[]>([])
+
+  const LOCAL_STORAGE_KEY = 'todoApp.todos'
+
+  useEffect(() => {
+    const storageItem = localStorage.getItem(LOCAL_STORAGE_KEY)
+    const storedTodos = storageItem != null ? JSON.parse(storageItem) : []
+    if (storedTodos?.length > 0) setTodos(storedTodos)
+  }, [])
 
   const toggleTodo = (selectedTodo: TodoListItem): void => {
     const newTodos = todos.map((item) => {
@@ -34,16 +29,21 @@ export const App = (): JSX.Element => {
       return item
     })
     setTodos(newTodos)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
   }
 
   const addTodoItem: AddTodoItem = (text: string) => {
     const id = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1
     const newTodoItem = { id, text, isCompleted: false }
-    setTodos([...todos, newTodoItem])
+    const newTodos = [...todos, newTodoItem]
+    setTodos(newTodos)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
   }
 
   const deleteTodoItem = (id: number): void => {
-    setTodos(todos.filter((item) => item.id !== id))
+    const newTodos = todos.filter((item) => item.id !== id)
+    setTodos(newTodos)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
   }
 
   return (
