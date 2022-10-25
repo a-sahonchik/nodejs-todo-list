@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import ListGroup from 'react-bootstrap/ListGroup'
 import CloseButton from 'react-bootstrap/CloseButton'
@@ -8,13 +8,22 @@ interface Props {
   item: TodoListItem
   toggleTodo: ToggleTodo
   deleteTodoItem: DeleteTodoItem
+  editTodoItem: EditTodoItem
 }
 
 export const ListItem: React.FC<Props> = ({
   item,
   toggleTodo,
   deleteTodoItem,
+  editTodoItem,
 }) => {
+  const [isEditing, setIsEditing] = useState(false)
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    editTodoItem(item, e.target.value)
+    setIsEditing(false)
+  }
+
   return (
     <ListGroup.Item
       as="li"
@@ -30,7 +39,19 @@ export const ListItem: React.FC<Props> = ({
           toggleTodo(item)
         }}
       />{' '}
-      <div className="ms-2 me-auto">{item.text}</div>
+      <div className="ms-2 me-auto">
+        {isEditing ? (
+          <form>
+            <input
+              type="text"
+              defaultValue={item.text}
+              onBlur={handleInputChange}
+            />
+          </form>
+        ) : (
+          <span onDoubleClick={() => setIsEditing(true)}>{item.text}</span>
+        )}
+      </div>
       <CloseButton
         onClick={() => {
           deleteTodoItem(item.id)

@@ -46,6 +46,20 @@ export const App = (): JSX.Element => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
   }
 
+  const editTodoItem = (selectedTodo: TodoListItem, newText: string): void => {
+    const newTodos = todos.map((item) => {
+      if (item === selectedTodo) {
+        return {
+          ...item,
+          text: newText,
+        }
+      }
+      return item
+    })
+    setTodos(newTodos)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
+  }
+
   return (
     <>
       <div id="header">
@@ -74,6 +88,7 @@ export const App = (): JSX.Element => {
           todos={todos}
           toggleTodo={toggleTodo}
           deleteTodoItem={deleteTodoItem}
+          editTodoItem={editTodoItem}
         />
       </Container>
 

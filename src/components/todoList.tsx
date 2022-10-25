@@ -7,12 +7,14 @@ interface Props {
   todos: TodoListItem[]
   toggleTodo: ToggleTodo
   deleteTodoItem: DeleteTodoItem
+  editTodoItem: EditTodoItem
 }
 
 export const TodoList: React.FC<Props> = ({
   todos,
   toggleTodo,
   deleteTodoItem,
+  editTodoItem,
 }) => {
   return (
     <ListGroup>
@@ -22,6 +24,7 @@ export const TodoList: React.FC<Props> = ({
           item={todo}
           toggleTodo={toggleTodo}
           deleteTodoItem={deleteTodoItem}
+          editTodoItem={editTodoItem}
         />
       ))}
     </ListGroup>
