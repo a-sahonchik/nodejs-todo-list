@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../styles.css'
 import LOGO from '../logo.png'
-import { ListItem } from './listItem'
+import { TodoList } from './todoList'
 
 const initialTodos: TodoListItem[] = [
   {
@@ -37,8 +37,7 @@ export const App = (): JSX.Element => {
         <h1>React TypeScript Webpack Template</h1>
       </div>
 
-      <ListItem item={todos[0]} toggleTodo={toggleTodo} />
-      <ListItem item={todos[1]} toggleTodo={toggleTodo} />
+      <TodoList todos={todos} toggleTodo={toggleTodo} />
     </>
   )
 }
