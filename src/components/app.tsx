@@ -6,10 +6,12 @@ import { AddItem } from './addItem'
 
 const initialTodos: TodoListItem[] = [
   {
+    id: 1,
     text: 'Task 1',
     isCompleted: false,
   },
   {
+    id: 2,
     text: 'Task 2',
     isCompleted: true,
   },
@@ -32,8 +34,13 @@ export const App = (): JSX.Element => {
   }
 
   const addTodoItem: AddTodoItem = (text: string) => {
-    const newTodoItem = { text, isCompleted: false }
+    const id = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1
+    const newTodoItem = { id, text, isCompleted: false }
     setTodos([...todos, newTodoItem])
+  }
+
+  const deleteTodoItem = (id: number): void => {
+    setTodos(todos.filter((item) => item.id !== id))
   }
 
   return (
@@ -44,7 +51,11 @@ export const App = (): JSX.Element => {
       </div>
 
       <AddItem addTodoItem={addTodoItem} />
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
+      <TodoList
+        todos={todos}
+        toggleTodo={toggleTodo}
+        deleteTodoItem={deleteTodoItem}
+      />
     </>
   )
 }

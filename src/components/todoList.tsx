@@ -4,13 +4,23 @@ import { ListItem } from './listItem'
 interface Props {
   todos: TodoListItem[]
   toggleTodo: ToggleTodo
+  deleteTodoItem: DeleteTodoItem
 }
 
-export const TodoList: React.FC<Props> = ({ todos, toggleTodo }) => {
+export const TodoList: React.FC<Props> = ({
+  todos,
+  toggleTodo,
+  deleteTodoItem,
+}) => {
   return (
     <ul>
       {todos.map((todo) => (
-        <ListItem key={todo.text} item={todo} toggleTodo={toggleTodo} />
+        <ListItem
+          key={todo.id}
+          item={todo}
+          toggleTodo={toggleTodo}
+          deleteTodoItem={deleteTodoItem}
+        />
       ))}
     </ul>
   )
