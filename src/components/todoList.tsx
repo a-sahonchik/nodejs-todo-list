@@ -20,7 +20,7 @@ export const TodoList: React.FC<Props> = ({
     <ListGroup>
       {todos.map((todo) => (
         <ListItem
-          key={todo.id}
+          key={todo.uuid}
           item={todo}
           toggleTodo={toggleTodo}
           deleteTodoItem={deleteTodoItem}

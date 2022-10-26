@@ -39,7 +39,6 @@ export const ListItem: React.FC<Props> = ({
           toggleTodo(item)
         }}
       />{' '}
-      <span>{item.id}</span>
       <div className="ms-2 me-auto">
         {isEditing ? (
           <form>
@@ -58,7 +57,7 @@ export const ListItem: React.FC<Props> = ({
       </span>
       <CloseButton
         onClick={() => {
-          deleteTodoItem(item.id)
+          deleteTodoItem(item.uuid)
         }}
       />
     </ListGroup.Item>

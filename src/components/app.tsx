@@ -3,6 +3,7 @@ import '../styles.css'
 import LOGO from '../logo.png'
 import { TodoList } from './todoList'
 import { AddItem } from './addItem'
+import { v4 as uuidv4 } from 'uuid'
 
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
@@ -33,9 +34,9 @@ export const App = (): JSX.Element => {
   }
 
   const addTodoItem: AddTodoItem = (text: string) => {
-    const id = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1
+    const uuid = uuidv4()
     const newTodoItem = {
-      id,
+      uuid,
       text,
       isCompleted: false,
       editedAt: new Date().toLocaleString(),
@@ -45,8 +46,8 @@ export const App = (): JSX.Element => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
   }
 
-  const deleteTodoItem = (id: number): void => {
-    const newTodos = todos.filter((item) => item.id !== id)
+  const deleteTodoItem = (uuid: string): void => {
+    const newTodos = todos.filter((item) => item.uuid !== uuid)
     setTodos(newTodos)
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
   }
