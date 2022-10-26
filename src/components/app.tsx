@@ -34,7 +34,12 @@ export const App = (): JSX.Element => {
 
   const addTodoItem: AddTodoItem = (text: string) => {
     const id = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1
-    const newTodoItem = { id, text, isCompleted: false }
+    const newTodoItem = {
+      id,
+      text,
+      isCompleted: false,
+      editedAt: new Date().toLocaleString(),
+    }
     const newTodos = [...todos, newTodoItem]
     setTodos(newTodos)
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
@@ -48,10 +53,11 @@ export const App = (): JSX.Element => {
 
   const editTodoItem = (selectedTodo: TodoListItem, newText: string): void => {
     const newTodos = todos.map((item) => {
-      if (item === selectedTodo) {
+      if (item === selectedTodo && newText !== item.text) {
         return {
           ...item,
           text: newText,
+          editedAt: new Date().toLocaleString(),
         }
       }
       return item

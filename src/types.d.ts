@@ -2,6 +2,7 @@ interface TodoListItem {
   id: number
   text: string
   isCompleted: boolean
+  editedAt: string
 }
 
 type ToggleTodo = (selectedTodo: TodoListItem) => void

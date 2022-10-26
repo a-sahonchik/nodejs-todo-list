@@ -52,6 +52,9 @@ export const ListItem: React.FC<Props> = ({
           <span onDoubleClick={() => setIsEditing(true)}>{item.text}</span>
         )}
       </div>
+      <span className="text-muted">
+        <small>({item.editedAt})</small>
+      </span>
       <CloseButton
         onClick={() => {
           deleteTodoItem(item.id)
