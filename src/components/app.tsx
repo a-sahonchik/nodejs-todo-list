@@ -66,6 +66,12 @@ export const App = (): JSX.Element => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos))
   }
 
+  const sortedTodos = todos
+    .sort((a, b) => {
+      return a.editedAt.localeCompare(b.editedAt)
+    })
+    .reverse()
+
   return (
     <>
       <div id="header">
@@ -91,7 +97,7 @@ export const App = (): JSX.Element => {
 
       <Container className="mb-5">
         <TodoList
-          todos={todos}
+          todos={sortedTodos}
           toggleTodo={toggleTodo}
           deleteTodoItem={deleteTodoItem}
           editTodoItem={editTodoItem}

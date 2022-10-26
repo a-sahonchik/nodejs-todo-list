@@ -39,6 +39,7 @@ export const ListItem: React.FC<Props> = ({
           toggleTodo(item)
         }}
       />{' '}
+      <span>{item.id}</span>
       <div className="ms-2 me-auto">
         {isEditing ? (
           <form>
