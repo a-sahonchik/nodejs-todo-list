@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,6 +11,8 @@ interface Props {
 export const AddItem: React.FC<Props> = ({ addTodoItem }) => {
   const [text, setText] = useState('')
 
+  const { t } = useTranslation()
+
   return (
     <div className="mt-5 mb-5">
       <Form>
@@ -17,7 +20,7 @@ export const AddItem: React.FC<Props> = ({ addTodoItem }) => {
           <Form.Control
             type="text"
             value={text}
-            placeholder="Add todo here"
+            placeholder={t('Add todo here')}
             onChange={(e) => {
               setText(e.target.value)
             }}
@@ -30,7 +33,7 @@ export const AddItem: React.FC<Props> = ({ addTodoItem }) => {
               setText('')
             }}
           >
-            Add todo
+            {t('Add todo')}
           </Button>
         </div>
       </Form>

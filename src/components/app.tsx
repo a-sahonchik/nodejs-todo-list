@@ -4,9 +4,11 @@ import LOGO from '../logo.png'
 import { TodoList } from './todoList'
 import { AddItem } from './addItem'
 import { v4 as uuidv4 } from 'uuid'
+import { useTranslation } from 'react-i18next'
 
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
+import Button from 'react-bootstrap/Button'
 
 export const App = (): JSX.Element => {
   const [todos, setTodos] = useState<TodoListItem[]>([])
@@ -73,6 +75,12 @@ export const App = (): JSX.Element => {
     })
     .reverse()
 
+  const { i18n } = useTranslation()
+
+  const changeLanguage = (lng: string): void => {
+    i18n.changeLanguage(lng)
+  }
+
   return (
     <>
       <div id="header">
@@ -88,6 +96,22 @@ export const App = (): JSX.Element => {
               />{' '}
               React TypeScript Todo App
             </Navbar.Brand>
+            <div className="justify-content-end">
+              <Button
+                variant={i18n.language === 'en' ? 'primary' : 'outline-primary'}
+                type="button"
+                onClick={() => changeLanguage('en')}
+              >
+                en
+              </Button>
+              <Button
+                variant={i18n.language === 'ru' ? 'success' : 'outline-success'}
+                type="button"
+                onClick={() => changeLanguage('ru')}
+              >
+                ru
+              </Button>
+            </div>
           </Container>
         </Navbar>
       </div>
