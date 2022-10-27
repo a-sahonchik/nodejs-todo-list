@@ -6,9 +6,12 @@ import { AddItem } from './addItem'
 import { v4 as uuidv4 } from 'uuid'
 import { useTranslation } from 'react-i18next'
 
-import Container from 'react-bootstrap/Container'
-import Navbar from 'react-bootstrap/Navbar'
-import Button from 'react-bootstrap/Button'
+import Container from '@mui/material/Container'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 
 export const App = (): JSX.Element => {
   const [todos, setTodos] = useState<TodoListItem[]>([])
@@ -84,43 +87,63 @@ export const App = (): JSX.Element => {
   return (
     <>
       <div id="header">
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand>
-              <img
-                alt="Todo application logo"
-                src={LOGO}
-                width="27"
-                height="22"
-                className="d-inline-block align-middle m-3"
-              />{' '}
-              React TypeScript Todo App
-            </Navbar.Brand>
-            <div className="justify-content-end">
-              <Button
-                variant={i18n.language === 'en' ? 'primary' : 'outline-primary'}
-                type="button"
-                onClick={() => changeLanguage('en')}
+        <AppBar position="static" style={{ background: '#404040' }}>
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <Box
+                sx={{
+                  mr: 2,
+                }}
               >
-                en
-              </Button>
-              <Button
-                variant={i18n.language === 'ru' ? 'success' : 'outline-success'}
-                type="button"
-                onClick={() => changeLanguage('ru')}
-              >
-                ru
-              </Button>
-            </div>
+                <img
+                  alt="Todo application logo"
+                  src={LOGO}
+                  width="27"
+                  height="22"
+                  className="d-inline-block align-middle m-3"
+                />{' '}
+              </Box>
+              <Box sx={{ flexGrow: 1, display: 'flex' }}>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  sx={{
+                    mr: 1,
+                    fontFamily: 'monospace',
+                    fontWeight: { xs: 400, md: 700 },
+                    fontSize: { xs: '1em', md: '2em' },
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                >
+                  React TypeScript Todo App
+                </Typography>
+              </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                <Button
+                  variant={i18n.language === 'en' ? 'contained' : 'outlined'}
+                  onClick={() => changeLanguage('en')}
+                >
+                  en
+                </Button>
+                <Button
+                  variant={i18n.language === 'ru' ? 'contained' : 'outlined'}
+                  color="success"
+                  onClick={() => changeLanguage('ru')}
+                >
+                  ru
+                </Button>
+              </Box>
+            </Toolbar>
           </Container>
-        </Navbar>
+        </AppBar>
       </div>
 
-      <Container>
+      <Container maxWidth="xl">
         <AddItem addTodoItem={addTodoItem} />
       </Container>
 
-      <Container className="mb-5">
+      <Container className="mb-5" maxWidth="xl">
         <TodoList
           todos={sortedTodos}
           toggleTodo={toggleTodo}
@@ -128,12 +151,6 @@ export const App = (): JSX.Element => {
           editTodoItem={editTodoItem}
         />
       </Container>
-
-      <footer className="bg-dark text-white text-center text-lg-start mt-auto">
-        <div className="text-center p-3">
-          <span>React TypeScript Todo App</span>
-        </div>
-      </footer>
     </>
   )
 }

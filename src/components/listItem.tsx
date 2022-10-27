@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 
-import ListGroup from 'react-bootstrap/ListGroup'
-import CloseButton from 'react-bootstrap/CloseButton'
-import FormCheckInput from 'react-bootstrap/FormCheckInput'
+import List from '@mui/material/ListItem'
+import IconButton from '@mui/material/IconButton'
+import Checkbox from '@mui/material/Checkbox'
+import CloseIcon from '@mui/icons-material/Close'
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 interface Props {
   item: TodoListItem
@@ -25,41 +29,68 @@ export const ListItem: React.FC<Props> = ({
   }
 
   return (
-    <ListGroup.Item
-      as="li"
+    <List
       className="d-flex justify-content-between align-items-start"
       style={{
         textDecoration: item.isCompleted ? 'line-through' : undefined,
         background: item.isCompleted ? '#00ff101c' : 'white',
       }}
     >
-      <FormCheckInput
-        defaultChecked={item.isCompleted}
-        onClick={() => {
-          toggleTodo(item)
-        }}
-      />{' '}
-      <div className="ms-2 me-auto">
+      <Box>
+        <Checkbox
+          defaultChecked={item.isCompleted}
+          onClick={() => {
+            toggleTodo(item)
+          }}
+        />
+      </Box>
+      <Box sx={{ flexGrow: 1 }}>
         {isEditing ? (
-          <form>
-            <input
-              type="text"
-              defaultValue={item.text}
-              onBlur={handleInputChange}
-            />
-          </form>
+          <TextField
+            /* eslint-disable-next-line jsx-a11y/no-autofocus */
+            autoFocus
+            fullWidth
+            maxRows={4}
+            defaultValue={item.text}
+            onBlur={handleInputChange}
+            variant="standard"
+          />
         ) : (
-          <span onDoubleClick={() => setIsEditing(true)}>{item.text}</span>
+          <Typography
+            noWrap
+            sx={{
+              mr: 1,
+              fontSize: { xs: '0.8em', md: '1em' },
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+            onDoubleClick={() => setIsEditing(true)}
+          >
+            {item.text}
+          </Typography>
         )}
-      </div>
-      <span className="text-muted">
-        <small>({item.editedAt})</small>
-      </span>
-      <CloseButton
-        onClick={() => {
-          deleteTodoItem(item.uuid)
-        }}
-      />
-    </ListGroup.Item>
+      </Box>
+      <Box>
+        <Typography
+          noWrap
+          sx={{
+            mr: 1,
+            fontSize: { xs: '0.8em', md: '1em' },
+          }}
+          onDoubleClick={() => setIsEditing(true)}
+        >
+          {item.editedAt}
+        </Typography>
+      </Box>
+      <Box>
+        <IconButton
+          onClick={() => {
+            deleteTodoItem(item.uuid)
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </Box>
+    </List>
   )
 }

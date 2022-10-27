@@ -1,7 +1,7 @@
 import React from 'react'
 import { ListItem } from './listItem'
 
-import ListGroup from 'react-bootstrap/ListGroup'
+import List from '@mui/material/List'
 
 interface Props {
   todos: TodoListItem[]
@@ -17,7 +17,7 @@ export const TodoList: React.FC<Props> = ({
   editTodoItem,
 }) => {
   return (
-    <ListGroup>
+    <List>
       {todos.map((todo) => (
         <ListItem
           key={todo.uuid}
@@ -27,6 +27,6 @@ export const TodoList: React.FC<Props> = ({
           editTodoItem={editTodoItem}
         />
       ))}
-    </ListGroup>
+    </List>
   )
 }
